@@ -1,0 +1,31 @@
+version: "2.1"
+services:
+  wireguard:
+    image: lscr.io/linuxserver/wireguard
+    container_name: wireguard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      - PUID=1000 #userid auf dem wireguardhost
+      - PGID=1000 #groupif auf dem wireguardhost
+      - TZ=Europe/Berlin #your timezone
+      - SERVERURL= #your own domain please use your DDns Domain or if you have static IP, subdomain to this IP address
+      - SERVERPORT=51820
+      - PEERS=5 #change to match how many devies you want to use Wireguard on
+      - PEERDNS=auto
+      #- INTERNAL_SUBNET=10.13.13.0 #optional
+      - ALLOWEDIPS=0.0.0.0/0 #optional
+    volumes:
+      - /path/to/wireguard/config:/config #set your wireguard config path me: /home/USER/docker/wireguard/config
+      - /lib/modules:/lib/modules #do not change
+    ports:
+      - 51820:51820/udp #use udp because faster then tcp
+    restart: unless-stopped
+    # healthcheck not implemented on this version comming soon
+    #healthcheck:
+    #  test: ["executable", "arg"]
+    #  interval: 1m30s
+    #  timeout: 30s
+    #  retries: 5
+    #  start_period: 30s depricated

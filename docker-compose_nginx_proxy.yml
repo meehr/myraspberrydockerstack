@@ -1,0 +1,59 @@
+version: "3"
+
+volumes:
+  npm-data:
+  npm-ssl:
+  npm-db:
+
+networks:
+  frontend:
+    # add this if the network is already existing!
+    # external: true
+  backend:
+    # add this if the network is already existing!
+    # external: true
+
+services:
+  npm-app:
+    image: jc21/nginx-proxy-manager:latest
+    restart: always
+    ports:
+      - "80:80"
+      - "81:81"
+      - "443:443"
+    healthcheck:
+      test: curl --fail http://localhost || exit 1
+      interval: 300s
+      retries: 5
+      timeout: 10s
+    environment:
+      - DB_MYSQL_HOST=npm-db
+      - DB_MYSQL_PORT=3306
+      - DB_MYSQL_USER=npm
+      - DB_MYSQL_PASSWORD={change_me}
+      - DB_MYSQL_NAME=npm
+    volumes:
+      - npm-data:/data
+      - npm-ssl:/etc/letsencrypt
+    networks:
+      - frontend
+      - backend
+
+  npm-db:
+    image: jc21/mariadb-aria:latest
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD={change_me}
+      - MYSQL_DATABASE=npm
+      - MYSQL_USER=npm
+      - MYSQL_PASSWORD={change_me}
+    healthcheck:
+      test: mysql npm --user=root --password={change_me} --execute "SELECT 1;"
+      interval: 30s
+      timeout: 10s
+      retries: 5 
+    volumes:
+      - npm-db:/var/lib/mysql
+    networks:
+      - backend
+      

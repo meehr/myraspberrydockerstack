@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    restart: always
+    #Nur für den Betrieb mit Agents auf anderen Servern notwendig
+    #command: -H tcp://tasks.agent:9001 --tlsskipverify
+    volumes:
+      - data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - VIRTUAL_HOST=portainer.phoenyx.me
+      - VIRTUAL_PORT=9000
+    #Funktioniert leider so nicht da intern der Server nicht aufgerufen werden kann
+    #healthcheck:
+    #  test: curl --fail http://localhost:9000 || exit 1
+    #  interval: 300s
+    #  retries: 5
+    #  start_period: 20s
+    #  timeout: 10s
+    # Ich habe die Ports über den Nginx Proxy freigegeben. Soll aber auch hier gehen
+    ports:
+      - 8000:8000
+      - 9443:9443
+    networks:
+      - nginx_proxy_frontend
+      - nginx_proxy_backend
+      - agent_network
+networks:
+  agent_network: #Nur für den Betrieb mit Agents notwendig
+    #external: true
+  nginx_proxy_frontend:
+    # add this if the network is already existing!
+    external: true
+  nginx_proxy_backend:
+    # add this if the network is already existing!
+    external: true
+
+volumes:
+   data:
