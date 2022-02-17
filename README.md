@@ -33,7 +33,7 @@ Reihenfolge der Einrichtung:
   2. Portainer ( docker-compose -f docker-compose_portainer.yml up -d --build ) Ab hier könnt ihr unter der IP Eures Raspi Port 9000 Portainer erreichen. 
   3. Nextcloud / Wireguard prinzip sollte nun klar sein. 
 
-Vergesst nicht eure Daten anzupassen und euch eine Domain zu besorgen die Ihr auf Euren DDNS Anbieter umbiehen könnt. Sowie Euren Router entsprechend einzustellen. 
+Vergesst nicht eure Daten anzupassen und euch eine Domain zu besorgen die Ihr auf Euren DDNS Anbieter umbiegen könnt. Sowie Euren Router entsprechend einzustellen. 
 
 Ergänzung 1:
 
