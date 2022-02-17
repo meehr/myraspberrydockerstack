@@ -35,4 +35,9 @@ Reihenfolge der Einrichtung:
 
 Vergesst nicht eure Daten anzupassen und euch eine Domain zu besorgen die Ihr auf Euren DDNS Anbieter umbiehen könnt. Sowie Euren Router entsprechend einzustellen. 
 
+Ergänzung 1:
+
+Ich habe von regular Docker Container auf Docker Swarm umgestellt. Grund für diese umstellung war das ich Secrets nutzen wollte und so den DUC (DynamicUpdateClient) meines DDNS Anbieters als Service laufen lassen kann. Hier findet ihr das entsprechende Repo https://github.com/meehr/no-ip ( Thanks to [@aanousakis](https://hub.docker.com/r/aanousakis/no-ip) for your great Work ) 
+
+
 "Work on Progress"
