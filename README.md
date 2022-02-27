@@ -30,19 +30,20 @@ Alles was angepasst werden muss ist entweder in den Files kommentiert oder hat d
 
 Reihenfolge der Einrichtung:
 
-  1. Nginx Proxy <code>docker-compose -f docker-compose-nginx-proxy.yml up -d</code>
-  2. Portainer <code>docker-compose -f docker-compose-portainer.yml up -d</code> 
-  Ab hier könnt ihr unter der IP Eures Raspi Port 9000 Portainer erreichen. 
-  3. Nextcloud hier müsst ihr entscheiden
+1. Nginx Proxy `docker-compose -f docker-compose-nginx-proxy.yml up -d`
 
-    - MariaDB: 
-    <code>docker-compose -f docker-compose-nextcloud-mysql.yml up -d</code>
-    *Achtung alte Version wird in den nächsten Tagen geupdatet*
+2. Portainer `docker-compose -f docker-compose-portainer.yml up -d`
+
+Ab hier könnt ihr unter der IP Eures Raspi Port 9000 Portainer erreichen.
+
+3. Nextcloud hier müsst ihr entscheiden
+	- MariaDB:
+   `docker-compose -f docker-compose-nextcloud-mysql.yml up -d` *Achtung alte Version wird in den nächsten Tagen geupdatet*
+	- PostgreDB:
+    `docker-compose -f docker-compose-nextcloud-pgsql.yml up -d --build`
+    Für diese Nextcloud wird ein `--build` angehängt, da hier in einem weiteren File noch Anpassungen am Nextcloud Image vorgenommen werden. So habe ich nano, htop, mc und natürlich die Libary für die SVG Unterstützung mit in den Container gepackt.
     
-    - PostgreDB: 
-    <code>docker-compose -f docker-compose-nextcloud-pgsql.yml up -d --build</code>
-
-  4. WireguardVPN
+4. WireguardVPN `docker-compose f docker-compose-wireguard.yml up -d`
 
 Vergesst nicht eure Daten anzupassen und euch eine Domain zu besorgen die Ihr auf Euren DDNS Anbieter umbiegen könnt. Sowie Euren Router entsprechend einzustellen. 
 
