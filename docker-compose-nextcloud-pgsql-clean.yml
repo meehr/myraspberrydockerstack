@@ -1,0 +1,73 @@
+version: "3.5"
+
+volumes:
+  #nextcloud:
+  data:
+  db:
+  pgadmin:
+  #nextcloud-app:
+
+networks:
+  nginx_proxy_frontend:
+    # add this if the network is already existing!
+    external: true
+  nginx_proxy_backend:
+    # add this if the network is already existing!
+    external: true
+
+services:
+
+  nc-pgsql-app:
+    container_name: nc-pgsql-app
+    image: nextcloud:23
+    restart: always
+    volumes:
+      - data:/var/www/html/
+    healthcheck:
+      test: curl --fail http://localhost || exit 1
+      interval: 30s
+      retries: 5
+      timeout: 10s
+    environment:
+      POSTGRES_PASSWORD: [CHANGE ME]
+      POSTGRES_DB: nextcloud
+      POSTGRES_USER: postgres
+      POSTGRES_HOST: nc-pgsql-db
+      POSTGRES_PORT: 5433
+    ports:
+      - '8088:80'
+    networks:
+      - nginx_proxy_frontend
+      - nginx_proxy_backend
+
+  nc-pgsql-db:
+    container_name: nc-pgsql-db
+    image: postgres:alpine
+    restart: always
+    volumes:
+      - db:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD: [CHANGE ME]
+      POSTGRES_DATABASE: nextcloud
+      POSTGRES_USER: postgres
+    ports:
+      - '5433:5432'
+    networks:
+      - nginx_proxy_backend
+  
+  nc-pgsql-pgadmin:
+    container_name: nc-pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@phoenyx.me
+      PGADMIN_DEFAULT_PASSWORD: admin
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      POSTGRES_HOST: nc-pgsql-db
+    volumes:
+       - pgadmin:/var/lib/pgadmin
+    ports:
+      - "5050:80"
+    networks:
+      - nginx_proxy_frontend
+      - nginx_proxy_backend
+    restart: unless-stopped
