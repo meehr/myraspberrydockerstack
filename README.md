@@ -34,10 +34,10 @@ Reihenfolge der Einrichtung:
   2. Portainer <code>docker-compose -f docker-compose-portainer.yml up -d</code> 
   Ab hier könnt ihr unter der IP Eures Raspi Port 9000 Portainer erreichen. 
   3. Nextcloud hier müsst ihr entscheiden
-    3.1. MariaDB: <code>docker-compose -f docker-compose-nextcloud-mysql.yml up -d</code> *Achtung alte Version wird in den nächsten Tagen geupdatet*
-    3.2. PostgreDB: <code>docker-compose -f docker-compose-nextcloud-pgsql.yml up -d --build</code>
+    1. MariaDB: <code>docker-compose -f docker-compose-nextcloud-mysql.yml up -d</code> *Achtung alte Version wird in den nächsten Tagen geupdatet*
+    2. PostgreDB: <code>docker-compose -f docker-compose-nextcloud-pgsql.yml up -d --build</code>
   4. WireguardVPN
-  
+
 Vergesst nicht eure Daten anzupassen und euch eine Domain zu besorgen die Ihr auf Euren DDNS Anbieter umbiegen könnt. Sowie Euren Router entsprechend einzustellen. 
 
 Ergänzung 1:
