@@ -4,7 +4,7 @@ Ziel ist es mit den hier zur Verfügung gestellten Files einen Raspberry PI 4 mi
 
   1. NginX ReverseProxy ( ein Proxy um Anfragen auf Domains intern weiter zu verteilen ) 
   2. Portainer ( Web-GUI zur Verwaltung der Docker Container )
-  3. NextCloud ( Deine eigene Cloud Umgebung ) 
+  3. NextCloud ( Deine eigene Cloud Umgebung ) (PostgreDB und MariaDB)
   4. Wireguard ( VPN Server )
   .
   .
@@ -23,16 +23,21 @@ Folgende Schritte sind auszuführen.
   
 Da ich keine Lust hatte mich mit der weiteren Rechteverwaltung rum zuschlagen, wird der Rest der Aktionen im HomeVerzeichnis des $USER durchgeführt.
 
-Checkt das Git Repo im Homeverzeichnis Eures $USER aus und ihr erhaltet 4 Files
+~Checkt das Git Repo im Homeverzeichnis Eures $USER aus und ihr erhaltet 4 Files~
+Checkt das Repo aus und ihr erhaltet 5 Ordner. 
 
 Alles was angepasst werden muss ist entweder in den Files kommentiert oder hat den Wert {changeme}
 
 Reihenfolge der Einrichtung:
 
-  1. Nginx Proxy ( docker-compose -f docker-compose_nginx_proxy.yml up -d --build )
-  2. Portainer ( docker-compose -f docker-compose_portainer.yml up -d --build ) Ab hier könnt ihr unter der IP Eures Raspi Port 9000 Portainer erreichen. 
-  3. Nextcloud / Wireguard prinzip sollte nun klar sein. 
-
+  1. Nginx Proxy <code>docker-compose -f docker-compose-nginx-proxy.yml up -d</code>
+  2. Portainer <code>docker-compose -f docker-compose-portainer.yml up -d</code> 
+  Ab hier könnt ihr unter der IP Eures Raspi Port 9000 Portainer erreichen. 
+  3. Nextcloud hier müsst ihr entscheiden
+    3.1. MariaDB: <code>docker-compose -f docker-compose-nextcloud-mysql.yml up -d</code> *Achtung alte Version wird in den nächsten Tagen geupdatet*
+    3.2. PostgreDB: <code>docker-compose -f docker-compose-nextcloud-pgsql.yml up -d --build</code>
+  4. WireguardVPN
+  
 Vergesst nicht eure Daten anzupassen und euch eine Domain zu besorgen die Ihr auf Euren DDNS Anbieter umbiegen könnt. Sowie Euren Router entsprechend einzustellen. 
 
 Ergänzung 1:
