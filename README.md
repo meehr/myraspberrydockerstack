@@ -23,7 +23,6 @@ Folgende Schritte sind auszuführen.
   
 Da ich keine Lust hatte mich mit der weiteren Rechteverwaltung rum zuschlagen, wird der Rest der Aktionen im HomeVerzeichnis des $USER durchgeführt.
 
-~Checkt das Git Repo im Homeverzeichnis Eures $USER aus und ihr erhaltet 4 Files~
 Checkt das Repo aus und ihr erhaltet 5 Ordner. 
 
 Alles was angepasst werden muss ist entweder in den Files kommentiert oder hat den Wert {changeme}
