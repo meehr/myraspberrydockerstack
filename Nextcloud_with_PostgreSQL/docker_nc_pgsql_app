@@ -1,0 +1,10 @@
+#Mit diesem Dockerfile werden zusätzliche Packete in den Nextcloud Container gepackt. 
+#Dazu gehören in meinem Fall Packete wie Nano oder MC aber auch die SVG Unterstützung für IMagic
+#Aufgerufen wird das ganze mit: docker-compose -f "docker-compose-file" up -d --build
+#Ich habe mich für diesen Weg entschieden da ich so das Original Docker Image von Nextcloud nutzen
+#kann und alles andere nachinstallieren.
+
+FROM nextcloud:23
+
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt update -y && apt upgrade -y  && apt -y install nano mc htop libmagickcore-6.q16-6-extra && apt -y autoclean
